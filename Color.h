@@ -17,21 +17,21 @@ private:
     inline double hue2rgb(double p, double q, double t);
 public:
     // getters
-    unsigned char r();
-    unsigned char g();
-    unsigned char b();
-    unsigned char a();
-    unsigned char h();
-    unsigned char s();
-    unsigned char l();
+    inline unsigned char r();
+    inline unsigned char g();
+    inline unsigned char b();
+    inline unsigned char a();
+    inline unsigned int h();
+    inline unsigned char s();
+    inline unsigned char l();
 
     // setters
+    inline void setAlpha(unsigned char alpha);
     inline void setColor(unsigned char grey);
     inline void setColor(unsigned char r,unsigned char g,unsigned char b);
     inline void setColor(unsigned char r,unsigned char g,unsigned char b,unsigned char a);
     inline void setColor(int h, unsigned char s, unsigned char l);
     inline void setColor(int h, unsigned char s, unsigned char l,unsigned char a);
-    inline void setAlpha(unsigned char alpha);
 
     // constructors
     Color();

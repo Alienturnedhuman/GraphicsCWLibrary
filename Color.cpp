@@ -3,6 +3,207 @@
 //
 
 #include "Color.h"
+
+/**
+ * returns the red value
+ * @return
+ */
+inline unsigned char Color::r()
+{
+    return vR;
+}
+
+/**
+ * return the green value
+ * @return
+ */
+inline unsigned char Color::g()
+{
+    return vG;
+}
+
+/**
+ * returns the blue value
+ * @return
+ */
+inline unsigned char Color::b()
+{
+    return vB;
+}
+
+/**
+ * returns the alpha value
+ * @return
+ */
+inline unsigned char Color::a()
+{
+    return vA;
+}
+
+/**
+ * calculates and returns the hue for the color
+ *
+ * based on Zarokka's answer (and improved by me) from the thread:
+ * http://stackoverflow.com/questions/23090019/fastest-formula-to-get-hue-from-rgb
+ *
+ * @return
+ */
+inline unsigned int Color::h()
+{
+    int min,max;
+    /*
+     *  speed is the most important thing, so I have 'unrolled'
+     *  the if statements rather than use max/min functions as these
+     *  would duplicate many checks
+     */
+    if(vR>vG)
+    {
+        if(vB>vG)
+        {
+            // vB > vG > vR
+            min = vR;
+            max = vB;
+        }
+        else
+        {
+            // vG > VR||vB
+            max = vG;
+            min = vB>vR?vR:vB;
+        }
+    }
+    else
+    {
+        if(vB>vR)
+        {
+            // vB > vR > vG
+            min = vG;
+            max = vB;
+        }
+        else
+        {
+            // vR > VG||VB
+            max = vR;
+            min = vB>vG?vG:vB;
+        }
+    }
+    float hue = 0.0;
+    if(max == vR)
+    {
+        hue = 6.0 + (double)(vG - vB) / (max - min);
+    }
+    else if(max == vG)
+    {
+        hue = 2.0 + (double)(vB - vR) / (max - min);
+    }
+    else
+    {
+        hue = 4.0 + (double)(vR - vG) / (max - min);
+    }
+    hue *= 60;
+    return ((unsigned int)hue)%360;
+}
+
+/**
+ * calculates and returns the saturation of the color
+ *
+ * based (but modified by me) on code here:
+ * https://gist.github.com/mjackson/5311256
+ * @return
+ */
+inline unsigned char Color::s()
+{
+    int min,max;
+    /*
+     *  speed is the most important thing, so I have 'unrolled'
+     *  the if statements rather than use max/min functions as these
+     *  would duplicate many checks
+     */
+    if(vR>vG)
+    {
+        if(vB>vG)
+        {
+            // vB > vG > vR
+            min = vR;
+            max = vB;
+        }
+        else
+        {
+            // vG > VR||vB
+            max = vG;
+            min = vB>vR?vR:vB;
+        }
+    }
+    else
+    {
+        if(vB>vR)
+        {
+            // vB > vR > vG
+            min = vG;
+            max = vB;
+        }
+        else
+        {
+            // vR > VG||VB
+            max = vR;
+            min = vB>vG?vG:vB;
+        }
+    }
+    if(min == max)
+    {
+        return 0;
+    }
+    float l = (float)(max + min)/512;
+    float d = (float)(max - min)/256;
+    return (unsigned char)((l > 0.5 ? d / (2 - max - min) : d / (max + min))*256);
+}
+/**
+ * calculates and returns the lightness of the color
+ *
+ * based (but modified by me) on code here:
+ * https://gist.github.com/mjackson/5311256
+ * @return
+ */
+inline unsigned char Color::l()
+{
+    int min,max;
+    /*
+     *  speed is the most important thing, so I have 'unrolled'
+     *  the if statements rather than use max/min functions as these
+     *  would duplicate many checks
+     */
+    if(vR>vG)
+    {
+        if(vB>vG)
+        {
+            // vB > vG > vR
+            min = vR;
+            max = vB;
+        }
+        else
+        {
+            // vG > VR||vB
+            max = vG;
+            min = vB>vR?vR:vB;
+        }
+    }
+    else
+    {
+        if(vB>vR)
+        {
+            // vB > vR > vG
+            min = vG;
+            max = vB;
+        }
+        else
+        {
+            // vR > VG||VB
+            max = vR;
+            min = vB>vG?vG:vB;
+        }
+    }
+    return (max + min)/2;
+}
+
 /**
  * Sets the alpha of the color (without modifying color)
  * @param alpha
