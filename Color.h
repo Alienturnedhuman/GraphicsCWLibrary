@@ -6,12 +6,15 @@
 #define LIBRARY_COLOR_H
 
 
-class Color {
+class Color
+{
 private:
     unsigned char vR;
     unsigned char vG;
     unsigned char vB;
     unsigned char vA;
+
+    inline double hue2rgb(double p, double q, double t);
 public:
     // getters
     unsigned char r();
@@ -23,11 +26,12 @@ public:
     unsigned char l();
 
     // setters
-    void setColor(unsigned char grey);
-    void setColor(unsigned char r,unsigned char g,unsigned char b);
-    void setColor(unsigned char r,unsigned char g,unsigned char b,unsigned char a);
-    void setColor(int h, unsigned char s, unsigned char l);
-    void setColor(int h, unsigned char s, unsigned char l,unsigned char a);
+    inline void setColor(unsigned char grey);
+    inline void setColor(unsigned char r,unsigned char g,unsigned char b);
+    inline void setColor(unsigned char r,unsigned char g,unsigned char b,unsigned char a);
+    inline void setColor(int h, unsigned char s, unsigned char l);
+    inline void setColor(int h, unsigned char s, unsigned char l,unsigned char a);
+    inline void setAlpha(unsigned char alpha);
 
     // constructors
     Color();
