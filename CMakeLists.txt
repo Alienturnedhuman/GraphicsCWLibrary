@@ -3,5 +3,5 @@ project(library)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES library.cpp library.h Color.cpp Color.h Texture.cpp Texture.h RenderModel.cpp RenderModel.h)
+set(SOURCE_FILES library.cpp library.h Color.cpp Color.h Texture.cpp Texture.h RenderModel.cpp RenderModel.h PhysicalModel.cpp PhysicalModel.h CollisionModel.cpp CollisionModel.h)
 add_library(library ${SOURCE_FILES})
