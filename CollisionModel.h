@@ -6,6 +6,7 @@
 #define LIBRARY_COLLISIONMODEL_H
 
 #include <cstdlib>
+#include <list>
 
 class PhysicalModel;
 
@@ -113,5 +114,25 @@ inline bool operator!=(const CollisionModel &a, const CollisionModel &b)
     return !(a == b);
 }
 
+
+
+class CollisionPipeline
+{
+private:
+    list<CollisionModel*> pipeline;
+    int size=0;
+public:
+    inline void addModel(CollisionModel* model);
+    inline CollisionModel* retrieveModel();
+};
+
+inline CollisionModel& operator>>(CollisionModel& cm , CollisionPipeline& cp)
+{
+    cp.addModel(&cm);
+}
+inline CollisionModel& operator<<(CollisionModel& cm , CollisionPipeline& cp)
+{
+    return *cp.retrieveModel();
+}
 
 #endif //LIBRARY_COLLISIONMODEL_H

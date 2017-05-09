@@ -29,3 +29,21 @@ inline bool CollisionModel::collidesBC(const CollisionModel &cm) const
 {
     return cm.collidesCB((CollisionModel &) this);
 }
+
+
+inline void CollisionPipeline::addModel(CollisionModel* model)
+{
+    pipeline.push_back(model);
+    ++size;
+}
+inline CollisionModel* CollisionPipeline::retrieveModel()
+{
+    if(size==0)
+    {
+        return nullptr;
+    }
+    CollisionModel* r = pipeline.back();
+    pipeline.pop_back();
+    --size;
+    return r;
+}
