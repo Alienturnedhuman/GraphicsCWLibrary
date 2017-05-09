@@ -17,13 +17,19 @@ class CollisionModel {
 public:
     static enum Shape{BOX,CIRCLE};
 private:
-    double origin_x,origin_y,box_bottom,box_top,box_left,box_right,circle_radius;
-    int angle;
+    double origin_x,origin_y,box_bottom,box_top,box_left,box_right,circle_radius=0;
+    int angle = 0;
     Shape model;
     PhysicalModel* parentElement;
 public:
     inline Shape getModel() const;
+    inline Point getGlobalPos() const;
     inline PhysicalModel* getParentElement() const;
+
+    double getRadius() const
+    {
+        return circle_radius;
+    }
 
 
     inline bool collidesCC(const CollisionModel &cm) const;

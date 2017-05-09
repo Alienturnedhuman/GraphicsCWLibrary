@@ -16,6 +16,17 @@ inline PhysicalModel* CollisionModel::getParentElement() const
 inline bool CollisionModel::collidesCC(const CollisionModel &cm) const
 {
     // code for Circle/Circle collision here
+    Point aPos = this->getGlobalPos();
+    Point bPos = cm.getGlobalPos();
+
+    double xDiff = aPos.x - bPos.x;
+    double yDiff = aPos.y - bPos.y;
+    double rSum = this->getRadius()+cm.getRadius();
+
+    free(&aPos);
+    free(&bPos);
+
+    return rSum*rSum < (xDiff*xDiff + yDiff*yDiff);
 }
 inline bool CollisionModel::collidesCB(const CollisionModel &cm) const
 {

@@ -19,14 +19,3 @@ inline RenderModel* PhysicalModel::getRenderer() const
 {
     return renderer;
 }
-
-inline Point PhysicalModel::getGlobalPos() const
-{
-    Point rv;
-    //Point p = parentElement->getGlobalPos();
-
-
-
-
-    return rv;
-}

@@ -12,6 +12,7 @@
 #include "Texture.h"
 
 using namespace std;
+class PhysicalModel;
 
 class RenderModel {
 private:
@@ -22,8 +23,10 @@ private:
     bool textured;
     double origin_x,origin_y,box_bottom,box_top,box_left,box_right,circle_radius;
     int angle;
+    PhysicalModel* parentElement;
 public:
 
+    inline Point getGlobalPos() const;
     RenderModel();
 };
 
