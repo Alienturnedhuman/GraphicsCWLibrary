@@ -7,6 +7,7 @@
 
 
 #include <list>
+#include "Point.h"
 #include "Color.h"
 #include "Texture.h"
 
@@ -19,6 +20,8 @@ private:
     Color color;
     Texture texture;
     bool textured;
+    double origin_x,origin_y,box_bottom,box_top,box_left,box_right,circle_radius;
+    int angle;
 public:
 
     RenderModel();

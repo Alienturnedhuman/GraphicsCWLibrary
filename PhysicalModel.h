@@ -6,7 +6,7 @@
 #define LIBRARY_PHYSICALMODEL_H
 
 #include <cstdlib>
-
+#include "Point.h"
 #include "RenderModel.h"
 #include "CollisionModel.h"
 
@@ -17,7 +17,8 @@ using namespace std;
 
 class PhysicalModel {
 private:
-    double x,y,r;
+    double x,y;
+    int r;
     bool collides,rendered;
     RenderModel* renderer;
     CollisionModel* collider;
@@ -26,6 +27,9 @@ public:
     inline Entity* getParentElement() const;
     inline CollisionModel* getCollider() const;
     inline RenderModel* getRenderer() const;
+
+    inline Point getGlobalPos() const;
+
 
     // constructors
     /**
@@ -37,7 +41,7 @@ public:
      * @param cm
      * @param p
      */
-    PhysicalModel(double cx, double cy,double cr,RenderModel* rm, CollisionModel* cm, Entity* p)
+    PhysicalModel(double cx, double cy,int cr,RenderModel* rm, CollisionModel* cm, Entity* p)
     {
         x = cx;
         y = cy;
@@ -57,7 +61,7 @@ public:
      * @param rm
      * @param p
      */
-    PhysicalModel(double cx, double cy,double cr,RenderModel* rm, Entity* p)
+    PhysicalModel(double cx, double cy,int cr,RenderModel* rm, Entity* p)
     {
         x = cx;
         y = cy;
@@ -77,7 +81,7 @@ public:
      * @param cm
      * @param p
      */
-    PhysicalModel(double cx, double cy,double cr,CollisionModel* cm, Entity* p)
+    PhysicalModel(double cx, double cy,int cr,CollisionModel* cm, Entity* p)
     {
         x = cx;
         y = cy;

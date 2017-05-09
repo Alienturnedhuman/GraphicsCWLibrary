@@ -7,6 +7,7 @@
 
 #include <cstdlib>
 #include <list>
+#include "Point.h"
 
 class PhysicalModel;
 
@@ -17,6 +18,7 @@ public:
     static enum Shape{BOX,CIRCLE};
 private:
     double origin_x,origin_y,box_bottom,box_top,box_left,box_right,circle_radius;
+    int angle;
     Shape model;
     PhysicalModel* parentElement;
 public:
@@ -55,12 +57,13 @@ public:
      * @param br
      * @param p
      */
-    CollisionModel(int ox, int oy, int bt, int bb, int bl, int br, PhysicalModel* p)
+    CollisionModel(int ox, int oy, int oa, int bt, int bb, int bl, int br, PhysicalModel* p)
     {
         model = BOX;
         parentElement = p;
         origin_x = ox;
         origin_y = oy;
+        angle = oa;
         box_top = bt;
         box_bottom = bb;
         box_left = bl;

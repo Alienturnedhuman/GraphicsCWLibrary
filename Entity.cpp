@@ -32,3 +32,12 @@ void Entity::addElement(list<PhysicalModel> aElement)
     ec += aElement.size();
 }
 
+
+inline Point Entity::getGlobalPos() const
+{
+    Point rv;
+    rv.x = x;
+    rv.y = y;
+    rv.r = r;
+    return rv;
+}
