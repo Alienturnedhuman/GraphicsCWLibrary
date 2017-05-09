@@ -5,6 +5,8 @@
 #ifndef LIBRARY_COLLISIONMODEL_H
 #define LIBRARY_COLLISIONMODEL_H
 
+#include "PhysicalModel.h"
+
 class PhysicalModel;
 
 class CollisionModel {
@@ -13,9 +15,16 @@ public:
 private:
     double origin_x,origin_y,box_bottom,box_top,box_left,box_right,circle_radius;
     Shape model;
-    PhysicalModel parent;
+    PhysicalModel parentElement;
 public:
-    Shape getModel() const;
+    inline Shape getModel() const;
+    inline PhysicalModel getParentElement() const;
+
+
+    inline bool collidesCC(const CollisionModel &cm) const;
+    inline bool collidesCB(const CollisionModel &cm) const;
+    inline bool collidesBB(const CollisionModel &cm) const;
+    inline bool collidesBC(const CollisionModel &cm) const;
 
     /**
      * Constructor for a circle
@@ -27,7 +36,7 @@ public:
     CollisionModel(int ox, int oy, int cr, PhysicalModel p)
     {
         model = CIRCLE;
-        parent = p;
+        parentElement = p;
         origin_x = ox;
         origin_y = oy;
         circle_radius = cr;
@@ -46,7 +55,7 @@ public:
     CollisionModel(int ox, int oy, int bt, int bb, int bl, int br, PhysicalModel p)
     {
         model = BOX;
-        parent = p;
+        parentElement = p;
         origin_x = ox;
         origin_y = oy;
         box_top = bt;
@@ -54,8 +63,6 @@ public:
         box_left = bl;
         box_right = br;
     }
-
-
 };
 
 /**
@@ -70,22 +77,22 @@ inline bool operator==(const CollisionModel &a, const CollisionModel &b)
     {
         if(b.getModel()==CollisionModel::Shape::CIRCLE)
         {
-            // put code for circle/circle collision here
+            return a.collidesCC(b);
         }
         else if(b.getModel()==CollisionModel::Shape::BOX)
         {
-            // put code for circle/circle collision here
+            return a.collidesCB(b);
         }
     }
     else if(a.getModel()==CollisionModel::Shape::BOX)
     {
         if(b.getModel()==CollisionModel::Shape::CIRCLE)
         {
-
+            return b.collidesCB(a);
         }
         else if(b.getModel()==CollisionModel::Shape::BOX)
         {
-
+            return a.collidesBB(b);
         }
     }
     // Note - should never get here, but if it does, fail to no collision
