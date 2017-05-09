@@ -5,9 +5,11 @@
 #ifndef LIBRARY_COLLISIONMODEL_H
 #define LIBRARY_COLLISIONMODEL_H
 
-#include "PhysicalModel.h"
+#include <cstdlib>
 
 class PhysicalModel;
+
+using namespace std;
 
 class CollisionModel {
 public:
@@ -15,10 +17,10 @@ public:
 private:
     double origin_x,origin_y,box_bottom,box_top,box_left,box_right,circle_radius;
     Shape model;
-    PhysicalModel parentElement;
+    PhysicalModel* parentElement;
 public:
     inline Shape getModel() const;
-    inline PhysicalModel getParentElement() const;
+    inline PhysicalModel* getParentElement() const;
 
 
     inline bool collidesCC(const CollisionModel &cm) const;
@@ -33,7 +35,7 @@ public:
      * @param cr
      * @param p
      */
-    CollisionModel(int ox, int oy, int cr, PhysicalModel p)
+    CollisionModel(int ox, int oy, int cr, PhysicalModel* p)
     {
         model = CIRCLE;
         parentElement = p;
@@ -52,7 +54,7 @@ public:
      * @param br
      * @param p
      */
-    CollisionModel(int ox, int oy, int bt, int bb, int bl, int br, PhysicalModel p)
+    CollisionModel(int ox, int oy, int bt, int bb, int bl, int br, PhysicalModel* p)
     {
         model = BOX;
         parentElement = p;

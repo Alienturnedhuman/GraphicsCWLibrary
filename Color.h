@@ -5,6 +5,8 @@
 #ifndef LIBRARY_COLOR_H
 #define LIBRARY_COLOR_H
 
+#include <cstdlib>
+using namespace std;
 
 class Color
 {

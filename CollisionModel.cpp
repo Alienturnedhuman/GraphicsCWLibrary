@@ -9,7 +9,7 @@ inline CollisionModel::Shape CollisionModel::getModel() const
 {
     return model;
 }
-inline PhysicalModel CollisionModel::getParentElement() const
+inline PhysicalModel* CollisionModel::getParentElement() const
 {
     return parentElement;
 }
