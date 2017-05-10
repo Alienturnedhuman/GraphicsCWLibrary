@@ -11,7 +11,9 @@
 class GameWorld
 {
 private:
+
     CollisionPipeline collisionPipeline;
+    CollisionPipeline movingPipeline;
     RenderPipeline renderLayer[5];
     list<Entity> entities;
 public:

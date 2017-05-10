@@ -22,8 +22,8 @@ public:
     static enum CollisionDirection{ALL,UP,DOWN,LEFT,RIGHT};
 private:
     list<PhysicalModel> element;
-    int ec = 0 , r=0; // element count (maintained here for speed)
-    double x,y,vx = 0.0,vy=0.0,e=0.0,m=1.0;
+    int ec = 0 , r=0; // ec =  element count (maintained here for speed) | r = rotation
+    double x,y , vx = 0.0,vy=0.0, e=0.0 , m=1.0; // x/y pos | vx/vy velocities | e = elasticity | m = mass
     bool canRotate;
     EntityType modelType = GENERIC;
     int renderLayer;

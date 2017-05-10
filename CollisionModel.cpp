@@ -84,7 +84,15 @@ inline void CollisionPipeline::addModel(CollisionModel* model)
     pipeline.push_back(model);
     ++size;
 }
-inline CollisionModel* CollisionPipeline::retrieveModel()
+inline CollisionModel* CollisionPipeline::nextModel() {
+    if (it != pipeline.end()) {
+        CollisionModel *r = *it;
+        ++it;
+    } else {
+        return nullptr;
+    }
+}
+inline CollisionModel* CollisionPipeline::popModel()
 {
     if(size==0)
     {

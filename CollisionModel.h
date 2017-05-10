@@ -135,9 +135,15 @@ class CollisionPipeline
 private:
     list<CollisionModel*> pipeline;
     int size=0;
+    list<CollisionModel*>::iterator it;
 public:
     inline void addModel(CollisionModel* model);
-    inline CollisionModel* retrieveModel();
+    inline CollisionModel* nextModel();
+    inline CollisionModel* popModel();
+    inline void resetIterator()
+    {
+        it = pipeline.begin();
+    }
 };
 
 inline CollisionModel& operator>>(CollisionModel& cm , CollisionPipeline& cp)
@@ -146,7 +152,7 @@ inline CollisionModel& operator>>(CollisionModel& cm , CollisionPipeline& cp)
 }
 inline CollisionModel& operator<<(CollisionModel& cm , CollisionPipeline& cp)
 {
-    return *cp.retrieveModel();
+    return *cp.nextModel();
 }
 
 #endif //LIBRARY_COLLISIONMODEL_H
