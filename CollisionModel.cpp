@@ -61,22 +61,6 @@ inline bool CollisionModel::collidesBB(const CollisionModel &cm) const
     }
     return rv;
 }
-inline bool CollisionModel::collidesBC(const CollisionModel &cm) const
-{
-    return cm.collidesCB((CollisionModel &) this);
-}
-static inline bool CollisionModel::pointInRectangle(Point co, Point a , Point b , Point c , Point d) const
-{
-    return false;
-}
-static inline bool CollisionModel::intersectsCircle(Point co, double cr, Point la , Point lb) const
-{
-    return false;
-}
-static inline bool CollisionModel::intersectsRectangle(Point ra , Point rb , Point rc , Point rd, Point la, Point lb) const
-{
-    return false;
-}
 
 
 inline void CollisionPipeline::addModel(CollisionModel* model)

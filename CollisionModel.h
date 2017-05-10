@@ -16,7 +16,7 @@ using namespace std;
 class CollisionModel
 {
 public:
-    static enum Shape{BOX,CIRCLE};
+    enum Shape{BOX,CIRCLE};
 private:
     double origin_x,origin_y,box_bottom,box_top,box_left,box_right,circle_radius=0;
     int angle = 0;
@@ -33,14 +33,22 @@ public:
         return circle_radius;
     }
 
-    static inline bool pointInRectangle(Point co, Point a , Point b , Point c , Point d) const;
-    static inline bool intersectsCircle(Point co, double cr, Point la , Point lb) const;
-    static inline bool intersectsRectangle(Point ra , Point rb , Point rc , Point rd, Point la, Point lb) const;
+    static inline bool pointInRectangle(Point co, Point a , Point b , Point c , Point d)
+    {
+        return false;
+    };
+    static inline bool intersectsCircle(Point co, double cr, Point la , Point lb)
+    {
+        return false;
+    };
+    static inline bool intersectsRectangle(Point ra , Point rb , Point rc , Point rd, Point la, Point lb)
+    {
+        return false;
+    };
 
     inline bool collidesCC(const CollisionModel &cm) const;
     inline bool collidesCB(const CollisionModel &cm) const;
     inline bool collidesBB(const CollisionModel &cm) const;
-    inline bool collidesBC(const CollisionModel &cm) const;
 
     /**
      * Constructor for a circle

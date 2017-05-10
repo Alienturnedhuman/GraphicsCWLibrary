@@ -19,7 +19,7 @@ private:
     double sinValue[360];
     double cosValue[360];
 public:
-    const static float PI = 3.1415926535897932384626433832795f;
+    const double PI = 3.1415926535897932384626433832795f;
 
     inline double cos(int angle) const
     {
