@@ -30,7 +30,16 @@ inline bool CollisionModel::collidesCC(const CollisionModel &cm) const
 }
 inline bool CollisionModel::collidesCB(const CollisionModel &cm) const
 {
-    // code for Circle/Box collision here
+    bool rv = false;
+    Point o = getGlobalPos();
+    Point* rp = getRectPoints();
+    rv = CollisionModel::pointInRectangle(o,rp[0],rp[1],rp[2],rp[3]);
+    int circIterator = 0;
+    double cr = getRadius();
+    while(!rv && CollisionModel::intersectsCircle(o,cr,rp[circIterator],rp[++circIterator%4]) && circIterator>0){};
+    free(&o);
+    free(&rp);
+    return rv;
 }
 inline bool CollisionModel::collidesBB(const CollisionModel &cm) const
 {
@@ -39,6 +48,14 @@ inline bool CollisionModel::collidesBB(const CollisionModel &cm) const
 inline bool CollisionModel::collidesBC(const CollisionModel &cm) const
 {
     return cm.collidesCB((CollisionModel &) this);
+}
+static inline bool CollisionModel::pointInRectangle(Point co, Point a , Point b , Point c , Point d) const
+{
+    return false;
+}
+static inline bool CollisionModel::intersectsCircle(Point co, double cr, Point a , Point b) const
+{
+    return false;
 }
 
 

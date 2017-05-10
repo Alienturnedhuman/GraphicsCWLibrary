@@ -24,6 +24,7 @@ private:
 public:
     inline Shape getModel() const;
     inline Point getGlobalPos() const;
+    inline Point* getRectPoints() const;
     inline PhysicalModel* getParentElement() const;
 
     double getRadius() const
@@ -31,6 +32,8 @@ public:
         return circle_radius;
     }
 
+    static inline bool pointInRectangle(Point co, Point a , Point b , Point c , Point d) const;
+    static inline bool intersectsCircle(Point co, double cr, Point a , Point b) const;
 
     inline bool collidesCC(const CollisionModel &cm) const;
     inline bool collidesCB(const CollisionModel &cm) const;

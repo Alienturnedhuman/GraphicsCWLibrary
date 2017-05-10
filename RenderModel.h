@@ -27,6 +27,7 @@ private:
 public:
 
     inline Point getGlobalPos() const;
+    inline Point* getRectPoints() const;
     RenderModel();
 };
 
