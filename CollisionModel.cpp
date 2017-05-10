@@ -32,18 +32,34 @@ inline bool CollisionModel::collidesCB(const CollisionModel &cm) const
 {
     bool rv = false;
     Point o = getGlobalPos();
-    Point* rp = getRectPoints();
+    Point* rp = cm.getRectPoints();
     rv = CollisionModel::pointInRectangle(o,rp[0],rp[1],rp[2],rp[3]);
     int circIterator = 0;
     double cr = getRadius();
-    while(!rv && CollisionModel::intersectsCircle(o,cr,rp[circIterator],rp[++circIterator%4]) && circIterator>0){};
+    while(!rv && !(rv = CollisionModel::intersectsCircle(o,cr,rp[circIterator],rp[++circIterator%4])) &&
+            circIterator>0){};  // empty while loop, checks and changes occur in condition part
     free(&o);
     free(&rp);
     return rv;
 }
 inline bool CollisionModel::collidesBB(const CollisionModel &cm) const
 {
-    // code for Box/Box collision here
+    bool rv = false;
+    Point aO = getGlobalPos();
+    Point* aRP = getRectPoints();
+    Point bO = cm.getGlobalPos();
+    Point* bRP = cm.getRectPoints();
+
+    if(CollisionModel::pointInRectangle(aO,bRP[0],bRP[1],bRP[2],bRP[3]) ||
+            CollisionModel::pointInRectangle(bO,aRP[0],aRP[1],aRP[2],aRP[3]))
+    {
+        rv = true;
+    }
+    else
+    {
+
+    }
+    return rv;
 }
 inline bool CollisionModel::collidesBC(const CollisionModel &cm) const
 {

@@ -34,6 +34,7 @@ public:
 
     static inline bool pointInRectangle(Point co, Point a , Point b , Point c , Point d) const;
     static inline bool intersectsCircle(Point co, double cr, Point a , Point b) const;
+    static inline bool intersectsCircle(Point la, Point lb, Point a , Point b , Point c , Point d) const;
 
     inline bool collidesCC(const CollisionModel &cm) const;
     inline bool collidesCB(const CollisionModel &cm) const;

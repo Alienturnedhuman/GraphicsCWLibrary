@@ -41,3 +41,7 @@ inline Point Entity::getGlobalPos() const
     rv.r = r;
     return rv;
 }
+inline int Entity::getRenderLayer()
+{
+    return renderLayer;
+}
