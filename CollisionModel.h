@@ -13,7 +13,8 @@ class PhysicalModel;
 
 using namespace std;
 
-class CollisionModel {
+class CollisionModel
+{
 public:
     static enum Shape{BOX,CIRCLE};
 private:
@@ -33,8 +34,8 @@ public:
     }
 
     static inline bool pointInRectangle(Point co, Point a , Point b , Point c , Point d) const;
-    static inline bool intersectsCircle(Point co, double cr, Point a , Point b) const;
-    static inline bool intersectsCircle(Point la, Point lb, Point a , Point b , Point c , Point d) const;
+    static inline bool intersectsCircle(Point co, double cr, Point la , Point lb) const;
+    static inline bool intersectsRectangle(Point ra , Point rb , Point rc , Point rd, Point la, Point lb) const;
 
     inline bool collidesCC(const CollisionModel &cm) const;
     inline bool collidesCB(const CollisionModel &cm) const;

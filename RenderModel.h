@@ -14,7 +14,8 @@
 using namespace std;
 class PhysicalModel;
 
-class RenderModel {
+class RenderModel
+{
 private:
     unsigned int width;
     unsigned int height;

@@ -69,7 +69,11 @@ static inline bool CollisionModel::pointInRectangle(Point co, Point a , Point b 
 {
     return false;
 }
-static inline bool CollisionModel::intersectsCircle(Point co, double cr, Point a , Point b) const
+static inline bool CollisionModel::intersectsCircle(Point co, double cr, Point la , Point lb) const
+{
+    return false;
+}
+static inline bool CollisionModel::intersectsRectangle(Point ra , Point rb , Point rc , Point rd, Point la, Point lb) const
 {
     return false;
 }

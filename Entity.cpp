@@ -45,3 +45,8 @@ inline int Entity::getRenderLayer()
 {
     return renderLayer;
 }
+
+inline bool Entity::isMoving() const
+{
+    return !(vx==0&&vy==0);
+}

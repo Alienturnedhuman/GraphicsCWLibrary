@@ -8,7 +8,8 @@
 #include <math.h>
 
 
-struct Point {
+struct Point
+{
     double x,y,r;
 };
 
@@ -20,7 +21,7 @@ private:
 public:
     const static float PI = 3.1415926535897932384626433832795f;
 
-    inline double cos(int angle)
+    inline double cos(int angle) const
     {
         if(angle<0)
         {
@@ -28,7 +29,7 @@ public:
         }
         return cosValue[angle%360];
     }
-    inline double sin(int angle)
+    inline double sin(int angle) const
     {
         if(angle<0)
         {

@@ -8,8 +8,12 @@
 
 #include "Entity.h"
 
-class GameWorld {
-
+class GameWorld
+{
+private:
+    CollisionPipeline collisionPipeline;
+    RenderPipeline renderLayer[5];
+    list<Entity> entities;
 public:
     static Rotation angles;
 };

@@ -14,7 +14,8 @@
 
 using namespace std;
 
-class Entity {
+class Entity
+{
 public:
     static enum EntityType{PLAYER,NPC,PROJECTILE,BOX,SURFACE,ENEMY,GENERIC};
     static enum CollisionRule{DAMAGE,HEALTH,KILLS,DIES,BOUNCES,STOPS,GAMEOVER,LEVELCOMPLETE};
@@ -36,6 +37,8 @@ public:
     void addElement(PhysicalModel aElement[],int eCount);
     void addElement(list<PhysicalModel> aElement);
     inline int getRenderLayer();
+
+    inline bool isMoving() const;
 
     inline Point getGlobalPos() const;
 

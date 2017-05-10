@@ -15,7 +15,8 @@ class Entity;
 
 using namespace std;
 
-class PhysicalModel {
+class PhysicalModel
+{
 private:
     double x,y;
     int r;
