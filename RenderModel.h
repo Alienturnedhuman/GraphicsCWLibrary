@@ -16,14 +16,17 @@ class PhysicalModel;
 
 class RenderModel
 {
+public:
+    enum Shape{BOX,CIRCLE};
 private:
     unsigned int width;
     unsigned int height;
+    Shape model;
     Color color;
     Texture texture;
     bool textured;
     double origin_x,origin_y,box_bottom,box_top,box_left,box_right,circle_radius;
-    int angle;
+    int angle=0.0;
     PhysicalModel* parentElement;
 public:
 

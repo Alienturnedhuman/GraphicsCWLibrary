@@ -7,15 +7,19 @@
 
 
 #include "Entity.h"
+#include "NonPlayerCharacter.h"
 
 class GameWorld
 {
 private:
-
     CollisionPipeline collisionPipeline;
     CollisionPipeline movingPipeline;
     RenderPipeline renderLayer[5];
     list<Entity> entities;
+    list<NonPlayerCharacter> npc;
+
+    double gravity = 10.0;
+
 public:
     static Rotation angles;
 };

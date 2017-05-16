@@ -18,18 +18,26 @@ class Entity
 {
 public:
     static enum EntityType{PLAYER,NPC,PROJECTILE,BOX,SURFACE,ENEMY,GENERIC};
-    static enum CollisionRule{DAMAGE,HEALTH,KILLS,DIES,BOUNCES,STOPS,GAMEOVER,LEVELCOMPLETE};
+    static enum CollisionRule{DAMAGE,HEALTH,KILLS,DIES,BOUNCES,STOPS,GAMEOVER,LEVELCOMPLETE,TRIGGER};
     static enum CollisionDirection{ALL,UP,DOWN,LEFT,RIGHT};
 private:
+    // graphics / physics rules
     list<PhysicalModel> element;
-    int ec = 0 , r=0; // ec =  element count (maintained here for speed) | r = rotation
-    double x,y , vx = 0.0,vy=0.0, e=0.0 , m=1.0; // x/y pos | vx/vy velocities | e = elasticity | m = mass
-    bool canRotate;
     EntityType modelType = GENERIC;
+    int ec = 0 , r=0; // ec =  element count (maintained here for speed) | r = rotation
+    double x,y , vx = 0.0,vy=0.0, e=0.0 , m=1.0 , vMax=0; // x/y pos | vx/vy velocities | e = elasticity | m = mass
+    bool canRotate = false;
     int renderLayer;
     bool movable;
+    bool affectedByGravity = false;
+
+    // gameplay / interaction rules
     map<EntityType,list<CollisionRule>> collisionRules;
     list<CollisionDirection> collisionDirections;
+    int health = 100;
+    int damage = 0;
+    int invincible = true;
+
 public:
     inline int elementCount() const;
 
@@ -42,6 +50,68 @@ public:
 
     inline Point getGlobalPos() const;
 
+    // modifiers
+    inline int healthModifier(int h)
+    {
+        health+=h;
+        return health;
+    }
+
+    // getters
+    inline bool isAffectedByGravity()
+    {
+        return affectedByGravity;
+    }
+    inline bool isMovable()
+    {
+        return movable;
+    }
+
+    // collection setters
+    inline void addCollisionRule(EntityType k , CollisionRule m)
+    {
+        map<EntityType,list<CollisionRule>>::iterator it = find(collisionRules.begin(),collisionRules.end(),k);
+        if(it == collisionRules.end())
+        {
+            list<CollisionRule> ne;
+            ne.push_back(m);
+            collisionRules.insert(pair<EntityType,list<CollisionRule>>(k,ne));
+        }
+        else
+        {
+            ((*it).second).push_back(m);
+        }
+    }
+    inline void addCollisionDirection(CollisionDirection c)
+    {
+        list<CollisionDirection>::iterator it = find(collisionDirections.begin(),collisionDirections.end(),c);
+        if(it == collisionDirections.end())
+        {
+            collisionDirections.push_back(c);
+        }
+    }
+
+    // setters
+    inline void setAffectedByGravity(bool c)
+    {
+        affectedByGravity = c;
+    }
+    inline void setMovable(bool c)
+    {
+        movable = c;
+    }
+    inline void setRenderLayer(int c)
+    {
+        renderLayer = c;
+    }
+    inline void setHealth(int c)
+    {
+        health = c;
+    }
+    inline void setDamage(int c)
+    {
+        damage = c;
+    }
     // constructors
     Entity(double cx,double cy)
     {

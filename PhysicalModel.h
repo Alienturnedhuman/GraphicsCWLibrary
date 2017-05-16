@@ -6,6 +6,7 @@
 #define LIBRARY_PHYSICALMODEL_H
 
 #include <cstdlib>
+#include <string>
 #include "Point.h"
 #include "RenderModel.h"
 #include "CollisionModel.h"
@@ -18,6 +19,7 @@ using namespace std;
 class PhysicalModel
 {
 private:
+    string name;
     double x,y;
     int r;
     bool collides,rendered;
