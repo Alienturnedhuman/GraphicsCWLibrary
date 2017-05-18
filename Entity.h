@@ -24,7 +24,7 @@ public:
     static enum Collectibles{KEY,JETPACK};
 private:
     // graphics / physics rules
-    map<string,PhysicalModel> element;
+    map<string,PhysicalModel*> element;
     EntityType modelType = GENERIC;
     int ec = 0 , r=0; // ec =  element count (maintained here for speed) | r = rotation
     double x,y , vx = 0.0,vy=0.0, e=0.0 , m=1.0 , vMax=0; // x/y pos | vx/vy velocities | e = elasticity | m = mass
@@ -46,9 +46,6 @@ private:
 public:
     inline int elementCount() const;
 
-    inline void addElement(PhysicalModel aElement);
-    void addElement(PhysicalModel aElement[],int eCount);
-    void addElement(list<PhysicalModel> aElement);
     inline int getRenderLayer();
 
     inline bool isMoving() const;
@@ -193,7 +190,20 @@ public:
     {
         y = ny;
     }
-    // constructors
+    // constructors and Entity construction methods
+
+    inline bool addPhysicalModel(string name, PhysicalModel* m)
+    {
+        if(element.find(name)==element.end())
+        {
+            element.insert(pair<string,PhysicalModel*>(name,m));
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     Entity(string c_name)
     {

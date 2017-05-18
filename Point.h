@@ -75,4 +75,19 @@ std::string trim(const std::string& str,
     return str.substr(strBegin, strRange);
 }
 
+// takes a line with an equals and splits into two strings
+std::pair<std::string,std::string> getEquals(const std::string line)
+{
+    int eq = line.find("=");
+    if(eq<line.length())
+    {
+        return std::pair<std::string,std::string>(line.substr(0,eq),line.substr(eq+1,std::string::npos));
+    }
+    else
+    {
+        return std::pair<std::string,std::string>(line, nullptr);
+    }
+
+};
+
 #endif //LIBRARY_POINT_H

@@ -20,8 +20,8 @@ class PhysicalModel
 {
 private:
     string name;
-    double x,y;
-    int r;
+    double x=0.0f,y=0.0f;
+    int r=0;
     bool collides,rendered;
     RenderModel* renderer;
     CollisionModel* collider;
@@ -44,8 +44,9 @@ public:
      * @param cm
      * @param p
      */
-    PhysicalModel(double cx, double cy,int cr,RenderModel* rm, CollisionModel* cm, Entity* p)
+    PhysicalModel(string cname, double cx, double cy,int cr,RenderModel* rm, CollisionModel* cm, Entity* p)
     {
+        name = cname;
         x = cx;
         y = cy;
         r = cr;
@@ -64,8 +65,9 @@ public:
      * @param rm
      * @param p
      */
-    PhysicalModel(double cx, double cy,int cr,RenderModel* rm, Entity* p)
+    PhysicalModel(string cname, double cx, double cy,int cr,RenderModel* rm, Entity* p)
     {
+        name = cname;
         x = cx;
         y = cy;
         r = cr;
@@ -84,8 +86,9 @@ public:
      * @param cm
      * @param p
      */
-    PhysicalModel(double cx, double cy,int cr,CollisionModel* cm, Entity* p)
+    PhysicalModel(string cname, double cx, double cy,int cr,CollisionModel* cm, Entity* p)
     {
+        name = cname;
         x = cx;
         y = cy;
         r = cr;
@@ -95,9 +98,9 @@ public:
         rendered = false;
     }
 
-    PhysicalModel(string id)
+    PhysicalModel(string cname)
     {
-
+        name = cname;
     }
 };
 

@@ -76,18 +76,24 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
             {
                 if(lineString.at(0)=='[')
                 {
-                    if(lineString == "[PhysicalModel]")
+                    if(lineString.at(lineLen-1) == ']')
                     {
-
+                        string pmName = lineString.substr(1,lineLen-2);
+                        currentPM = new PhysicalModel(pmName);
+                        if(!currentEnt->addPhysicalModel(pmName,currentPM))
+                        {
+                            free(currentPM);
+                            currentPM = nullptr;
+                        }
                     }
                 }
-                else if(lineString.at(0)=='(')
+                else if(lineString.at(0)=='(' && currentPM != nullptr)
                 {
-                    if(lineString=="(CollisionModel)")
+                    if(lineString.substr(0,17)=="(CollisionModel::" && lineString.at(lineLen-1)==')')
                     {
 
                     }
-                    else if(lineString=="(RenderModel)")
+                    else if(lineString.substr(0,14)=="(RenderModel::"  && lineString.at(lineLen-1)==')')
                     {
 
                     }
@@ -98,6 +104,7 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                 }
                 else
                 {
+                    pair<string,string> lineVar = getEquals(lineString);
                     if(currentCM != nullptr && currentPM != nullptr)
                     {
 
