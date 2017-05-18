@@ -60,6 +60,18 @@ bool Entity::importBool(string var,bool value)
     {
         canRotate = value;
     }
+    else if(var=="movable")
+    {
+        movable = value;
+    }
+    else if(var=="affectedByGravity")
+    {
+        affectedByGravity = value;
+    }
+    else if(var=="invincible")
+    {
+        invincible = value;
+    }
     else
     {
         return false;
@@ -67,11 +79,28 @@ bool Entity::importBool(string var,bool value)
     return true;
 }
 
+bool Entity::importEnum(string var,string value)
+{
+
+}
+
 bool Entity::importInt(string var,int value)
 {
     if(var == "r")
     {
         r = value;
+    }
+    else if(var == "renderLayer")
+    {
+        renderLayer = value;
+    }
+    else if(var == "health")
+    {
+        health = value;
+    }
+    else if(var == "damage")
+    {
+        damage = value;
     }
     else
     {

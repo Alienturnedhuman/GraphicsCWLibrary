@@ -29,8 +29,8 @@ private:
     int ec = 0 , r=0; // ec =  element count (maintained here for speed) | r = rotation
     double x,y , vx = 0.0,vy=0.0, e=0.0 , m=1.0 , vMax=0; // x/y pos | vx/vy velocities | e = elasticity | m = mass
     bool canRotate = false;
-    int renderLayer;
-    bool movable;
+    int renderLayer=3;
+    bool movable = false;
     bool affectedByGravity = false;
     string name;
 
@@ -47,7 +47,9 @@ private:
     // constructor based stuff
     enum ConType{INT,DOUBLE,STRING,ENUM,BOOL};
     static map<string,ConType> conImport = {{"x",DOUBLE},{"y",DOUBLE},{"vx",DOUBLE},{"vy",DOUBLE},{"m",DOUBLE},{"e",DOUBLE},
-                                            {"vMax",DOUBLE},{"r",INT},{"canRotate",BOOL}};
+                                            {"vMax",DOUBLE},{"r",INT},{"renderLayer",INT},{"canRotate",BOOL},{"movable",BOOL},
+                                            {"affectedByGravity",BOOL},{"invincible",BOOL},{"health",INT},{"damage",INT},
+                                            {"collisionDirection",ENUM},{"collisionRule",ENUM},{"canCollect",ENUM}};
 
     // import values
     bool importDouble(string var , double value);
