@@ -20,9 +20,11 @@ public:
     static enum EntityType{PLAYER,NPC,PROJECTILE,BOX,SURFACE,ENEMY,GENERIC};
     static enum CollisionRule{DAMAGE,HEALTH,KILLS,DIES,BOUNCES,STOPS,GAMEOVER,LEVELCOMPLETE,TRIGGER};
     static enum CollisionDirection{ALL,UP,DOWN,LEFT,RIGHT};
+    static enum Consumables{FUEL,BULLETS,BATTERY};
+    static enum Collectibles{KEY,JETPACK};
 private:
     // graphics / physics rules
-    list<PhysicalModel> element;
+    map<string,PhysicalModel> element;
     EntityType modelType = GENERIC;
     int ec = 0 , r=0; // ec =  element count (maintained here for speed) | r = rotation
     double x,y , vx = 0.0,vy=0.0, e=0.0 , m=1.0 , vMax=0; // x/y pos | vx/vy velocities | e = elasticity | m = mass
@@ -30,6 +32,7 @@ private:
     int renderLayer;
     bool movable;
     bool affectedByGravity = false;
+    string name;
 
     // gameplay / interaction rules
     map<EntityType,list<CollisionRule>> collisionRules;
@@ -37,6 +40,8 @@ private:
     int health = 100;
     int damage = 0;
     int invincible = true;
+    map<Consumables,int> bag;
+    map<Collectibles,bool> belt;
 
 public:
     inline int elementCount() const;
@@ -65,6 +70,74 @@ public:
     inline bool isMovable()
     {
         return movable;
+    }
+
+    inline void enableCollection(Consumables c, int v=0)
+    {
+        if(v<0)
+        {
+            v=0;
+        }
+        map<Consumables,int>::iterator bf=bag.find(c);
+        if(bf==bag.end())
+        {
+            bag.insert(pair<Consumables ,int>(c,v));
+        }
+        else
+        {
+            ((*bf).second)+=v;
+        }
+    }
+    inline void enableCollection(Collectibles c, bool v=false)
+    {
+        map<Collectibles,bool>::iterator bf=belt.find(c);
+        if(bf==belt.end())
+        {
+            belt.insert(pair<Collectibles ,bool>(c,v));
+        }
+        else
+        {
+            ((*bf).second)=v;
+        }
+    }
+
+    bool inline canCollect(Consumables c)
+    {
+        return bag.find(c)!=bag.end();
+    }
+    bool inline canCollect(Collectibles c)
+    {
+        return belt.find(c)!=belt.end();
+    }
+
+    inline int collectConsumable(Consumables c,int count)
+    {
+        map<Consumables,int>::iterator bf=bag.find(c);
+        if(bf==bag.end())
+        {
+            return 0;
+        }
+        else
+        {
+            ((*bf).second)+=count;
+            if(((*bf).second)<0)
+            {
+                ((*bf).second)=0;
+            }
+            return ((*bf).second);
+        }
+    }
+    inline bool collectCollectibles(Collectibles c)
+    {
+        map<Collectibles,bool>::iterator bf=belt.find(c);
+        if(bf==belt.end())
+        {
+            return false;
+        }
+        else
+        {
+            return (((*bf).second)=true);
+        }
     }
 
     // collection setters
@@ -112,7 +185,18 @@ public:
     {
         damage = c;
     }
+    inline void setX(double x)
+    {
+
+    }
     // constructors
+
+    Entity(string c_name)
+    {
+        name = c_name;
+    }
+
+    /*
     Entity(double cx,double cy)
     {
         x = cx;
@@ -185,7 +269,7 @@ public:
         Entity(cx,cy,cModelType,ce,cm);
         canRotate = cCanRotate;
     };
-
+    */
 };
 
 

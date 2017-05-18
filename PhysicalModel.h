@@ -94,6 +94,11 @@ public:
         collides = true;
         rendered = false;
     }
+
+    PhysicalModel(string id)
+    {
+
+    }
 };
 
 
