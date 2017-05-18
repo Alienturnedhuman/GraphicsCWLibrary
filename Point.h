@@ -78,7 +78,11 @@ std::string trim(const std::string& str,
 // takes a line with an equals and splits into two strings
 std::pair<std::string,std::string> getEquals(const std::string line)
 {
-    int eq = line.find("=");
+    return getEquals(line,'=');
+};
+std::pair<std::string,std::string> getEquals(const std::string line,char split)
+{
+    int eq = line.find(split);
     if(eq<line.length())
     {
         return std::pair<std::string,std::string>(line.substr(0,eq),line.substr(eq+1,std::string::npos));

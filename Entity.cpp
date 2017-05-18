@@ -81,7 +81,127 @@ bool Entity::importBool(string var,bool value)
 
 bool Entity::importEnum(string var,string value)
 {
-
+    if(var == "collisionDirection")
+    {
+        if(find(collisionDirections.begin(),collisionDirections.end(),CollisionDirection::ALL)==collisionDirections.end())
+        {
+            stringstream pS(value);
+            string direction;
+            while(getline(pS,direction,','))
+            {
+                if(direction=="ALL")
+                {
+                    collisionDirections.clear();
+                    collisionDirections.push_back(CollisionDirection::ALL);
+                    return true;
+                }
+                else if(direction=="UP")
+                {
+                    if(find(collisionDirections.begin(),collisionDirections.end(),CollisionDirection::UP)==collisionDirections.end())
+                    {
+                        collisionDirections.push_back(CollisionDirection::UP);
+                    }
+                }
+                else if(direction=="DOWN")
+                {
+                    if(find(collisionDirections.begin(),collisionDirections.end(),CollisionDirection::DOWN)==collisionDirections.end())
+                    {
+                        collisionDirections.push_back(CollisionDirection::DOWN);
+                    }
+                }
+                else if(direction=="LEFT")
+                {
+                    if(find(collisionDirections.begin(),collisionDirections.end(),CollisionDirection::LEFT)==collisionDirections.end())
+                    {
+                        collisionDirections.push_back(CollisionDirection::LEFT);
+                    }
+                }
+                else if(direction=="RIGHT")
+                {
+                    if(find(collisionDirections.begin(),collisionDirections.end(),CollisionDirection::RIGHT)==collisionDirections.end())
+                    {
+                        collisionDirections.push_back(CollisionDirection::RIGHT);
+                    }
+                }
+            }
+        }
+    }
+    else if(var=="collisionRule")
+    {
+        pair<string,string> lineVar = getEquals(value,':');
+    }
+    else if(var=="canCollect")
+    {
+        stringstream pS(value);
+        string thing;
+        while(getline(pS,thing,','))
+        {
+            if(thing=="KEY")
+            {
+                if(find(collisionDirections.begin(),collisionDirections.end(),Collectibles::KEY)==collisionDirections.end())
+                {
+                    belt.insert(pair<Collectibles,bool>(Collectibles::KEY,false));
+                }
+            }
+            else if(thing=="JETPACK")
+            {
+                if(find(collisionDirections.begin(),collisionDirections.end(),Collectibles::JETPACK)==collisionDirections.end())
+                {
+                    belt.insert(pair<Collectibles,bool>(Collectibles::JETPACK,false));
+                }
+            }
+            else if(thing=="KEY*")
+            {
+                if(find(collisionDirections.begin(),collisionDirections.end(),Collectibles::KEY)==collisionDirections.end())
+                {
+                    belt.insert(pair<Collectibles,bool>(Collectibles::KEY,true));
+                }
+            }
+            else if(thing=="JETPACK*")
+            {
+                if(find(collisionDirections.begin(),collisionDirections.end(),Collectibles::JETPACK)==collisionDirections.end())
+                {
+                    belt.insert(pair<Collectibles,bool>(Collectibles::JETPACK,true));
+                }
+            }
+            else
+            {
+                pair<string,string> baggable = getEquals(thing,':');
+                string item = baggable.first;
+                int q = -1;
+                Consumables c;
+                if(item=="FUEL")
+                {
+                    c=FUEL;
+                    q=stoi(baggable.second);
+                }
+                else if(item=="BULLETS")
+                {
+                    c=BULLETS;
+                    q=stoi(baggable.second);
+                }
+                else if(item=="BATTERY")
+                {
+                    c=BATTERY;
+                    q=stoi(baggable.second);
+                }
+                else if(item=="OXYGEN")
+                {
+                    c=OXYGEN;
+                    q=stoi(baggable.second);
+                }
+                if(q>=0)
+                {
+                    enableCollection(c,q);
+                }
+            }
+        }
+    }
+    else
+    {
+        return false;
+    }
+    return true;
 }
 
 bool Entity::importInt(string var,int value)
