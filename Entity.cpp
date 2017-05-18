@@ -129,6 +129,57 @@ bool Entity::importEnum(string var,string value)
     else if(var=="collisionRule")
     {
         pair<string,string> lineVar = getEquals(value,':');
+        string entityStr = lineVar.first;
+        EntityType entity;
+        map<EntityType,list<CollisionRule>>::iterator i;
+        list<CollisionRule> rules;
+        bool import = true;
+        if(entityStr=="PLAYER")
+        {
+            entity = PLAYER;
+        }
+        else if(entityStr=="NPC")
+        {
+            entity = NPC;
+        }
+        else if(entityStr=="PROJECTILE")
+        {
+            entity = PROJECTILE;
+        }
+        else if(entityStr=="BOX")
+        {
+            entity = BOX;
+        }
+        else if(entityStr=="SURFACE")
+        {
+            entity = SURFACE;
+        }
+        else if(entityStr=="ENEMY")
+        {
+            entity = ENEMY;
+        }
+        else if(entityStr=="GENERIC")
+        {
+            entity = GENERIC;
+        }
+        else
+        {
+            import = false;
+        }
+        if(import)
+        {
+            i=collisionRules.find(entity);
+
+            if(i==collisionRules.end())
+            {
+                rules = list<CollisionRule>();
+                collisionRules.insert(pair<EntityType,list<CollisionRule>>({entity,rules}));
+            }
+            else
+            {
+                rules=(*i).second;
+            }
+        }
     }
     else if(var=="canCollect")
     {
