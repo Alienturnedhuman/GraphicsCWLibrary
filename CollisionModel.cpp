@@ -62,7 +62,7 @@ inline bool CollisionModel::collidesBB(const CollisionModel &cm) const
     return rv;
 }
 
-void CollisionModel::importDouble(string var,double value)
+bool CollisionModel::importDouble(string var,double value)
 {
     if(var == "origin_x")
     {
@@ -88,9 +88,15 @@ void CollisionModel::importDouble(string var,double value)
     {
         box_right = value;
     }
-    else if(var == "circle_radius") {
+    else if(var == "circle_radius")
+    {
         circle_radius = value;
     }
+    else
+    {
+        return false;
+    }
+    return true;
 }
 
 

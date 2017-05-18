@@ -5,7 +5,61 @@
 #include "RenderModel.h"
 
 
+bool RenderModel::importDouble(string var,double value)
+{
+    if(var == "origin_x")
+    {
+        origin_x = value;
+    }
+    else if(var == "origin_y")
+    {
+        origin_y = value;
+    }
+    else if(var == "box_top")
+    {
+        box_top = value;
+    }
+    else if(var == "box_bottom")
+    {
+        box_bottom = value;
+    }
+    else if(var == "box_left")
+    {
+        box_left = value;
+    }
+    else if(var == "box_right")
+    {
+        box_right = value;
+    }
+    else if(var == "circle_radius")
+    {
+        circle_radius = value;
+    }
+    else
+    {
+        return false;
+    }
+    return true;
+}
 
+bool RenderModel::importColor(string var, unsigned char r, unsigned char g, unsigned char b)
+{
+    if (var == "color") {
+        if(color== nullptr)
+        {
+            color = new Color(r,g,b);
+        }
+        else
+        {
+            color->setColor(r,g,b);
+        }
+    }
+    else
+    {
+        return false;
+    }
+    return true;
+}
 
 
 inline void RenderPipeline::addModel(RenderModel* model)

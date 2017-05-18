@@ -26,6 +26,14 @@ private:
     RenderModel* renderer = nullptr;
     CollisionModel* collider = nullptr;
     Entity* parentElement = nullptr;
+
+    enum ConType{DOUBLE};
+    static map<string,ConType> conImport = {{"x",DOUBLE},{"y",DOUBLE}};
+
+    // import values
+    bool importDouble(string var , double value);
+    // bool importInt(string var, int value);
+    // bool importString(string var, string value);
 public:
     inline Entity* getParentElement() const;
     inline CollisionModel* getCollider() const;
@@ -34,6 +42,25 @@ public:
     inline Point getGlobalPos() const;
 
 
+    inline bool parseConstructorPair(pair<string,string> p)
+    {
+        map<string,ConType>::iterator it = conImport.find(p.first);
+        if(it!=conImport.end())
+        {
+            switch((*it).second)
+            {
+                case DOUBLE:
+                    return importDouble(p.first,stod(p.second));
+                /*
+                case INT:
+                    return importInt(p.first,stoi(p.second));
+                case STRING:
+                    return importString(p.first,p.second);
+                    */
+            }
+        }
+        return false;
+    }
     // constructors
     /**
      * Constructor for rendered and collision object

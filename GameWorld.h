@@ -135,6 +135,7 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                     }
                     else if(currentRM != nullptr && currentPM != nullptr)
                     {
+                        currentRM->parseConstructorPair(lineVar);
                     }
                     else if(currentPM != nullptr)
                     {

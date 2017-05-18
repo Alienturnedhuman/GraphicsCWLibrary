@@ -29,9 +29,9 @@ private:
                                             {"box_left",DOUBLE},{"box_right",DOUBLE},{"circle_radius",DOUBLE}};
 
     // import values
-    void importDouble(string var , double value);
-    void importInt(string var, int value);
-    void importString(string var, string value);
+    bool importDouble(string var , double value);
+    bool importInt(string var, int value);
+    bool importString(string var, string value);
 public:
     inline Shape getModel() const;
     inline Point getGlobalPos() const;
@@ -69,17 +69,14 @@ public:
             switch((*it).second)
             {
                 case DOUBLE:
-                    importDouble(p.first,stod(p.second));
-                    break;
+                    return importDouble(p.first,stod(p.second));
                 case INT:
-                    importInt(p.first,stoi(p.second));
-                    break;
+                    return importInt(p.first,stoi(p.second));
                 case STRING:
-                    importString(p.first,p.second);
-                    break;
-
+                    return importString(p.first,p.second);
             }
         }
+        return false;
     }
 
     CollisionModel(Shape s, PhysicalModel* p)

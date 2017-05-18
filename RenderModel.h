@@ -8,6 +8,7 @@
 
 #include <list>
 #include <map>
+#include <sstream>
 #include "Point.h"
 #include "Color.h"
 #include "Texture.h"
@@ -32,12 +33,70 @@ private:
 
     enum ConType{INT,DOUBLE,STRING,ENUM,COLOR};
     static map<string,ConType> conImport = {{"origin_x",DOUBLE},{"origin_y",DOUBLE},{"box_top",DOUBLE},{"box_bottom",DOUBLE},
-                                            {"box_left",DOUBLE},{"box_right",DOUBLE},{"circle_radius",DOUBLE},{"color",DOUBLE}};
+                                            {"box_left",DOUBLE},{"box_right",DOUBLE},{"circle_radius",DOUBLE},{"color",COLOR}};
+
+    // import values
+    bool importDouble(string var , double value);
+    bool importInt(string var, int value);
+    bool importString(string var, string value);
+    bool importColor(string var, unsigned char r, unsigned char g, unsigned char b);
 public:
 
     inline Point getGlobalPos() const;
     inline Point* getRectPoints() const;
 
+
+    inline bool parseConstructorPair(pair<string,string> p)
+    {
+        map<string,ConType>::iterator it = conImport.find(p.first);
+        if(it!=conImport.end())
+        {
+            switch((*it).second)
+            {
+                case DOUBLE:
+                    return importDouble(p.first,stod(p.second));
+                case INT:
+                    return importInt(p.first,stoi(p.second));
+                case STRING:
+                    return importString(p.first,p.second);
+                case COLOR:
+                    stringstream pS(p.second);
+                    string c;
+                    getline(pS,c,',');
+                    int r=stoi(c);
+                    getline(pS,c,',');
+                    int g=stoi(c);
+                    getline(pS,c,',');
+                    int b=stoi(c);
+                    if(r>255)
+                    {
+                        r=255;
+                    }
+                    if(r<0)
+                    {
+                        r=0;
+                    }
+                    if(g>255)
+                    {
+                        g=255;
+                    }
+                    if(g<0)
+                    {
+                        g=0;
+                    }
+                    if(b>255)
+                    {
+                        b=255;
+                    }
+                    if(b<0)
+                    {
+                        b=0;
+                    }
+                    return importColor(p.first,(unsigned char)r,(unsigned char)g,(unsigned char)b);
+            }
+        }
+        return false;
+    }
     RenderModel(Shape s, PhysicalModel* p)
     {
         model = s;

@@ -9,6 +9,7 @@ inline int Entity::elementCount() const
     return ec;
 }
 
+/*
 inline void Entity::addElement(PhysicalModel aElement)
 {
     element.push_back(aElement);
@@ -31,6 +32,7 @@ void Entity::addElement(list<PhysicalModel> aElement)
     }
     ec += aElement.size();
 }
+*/
 
 
 inline Point Entity::getGlobalPos() const
@@ -49,4 +51,69 @@ inline int Entity::getRenderLayer()
 inline bool Entity::isMoving() const
 {
     return !(vx==0&&vy==0);
+}
+
+
+bool Entity::importBool(string var,bool value)
+{
+    if(var == "canRotate")
+    {
+        canRotate = value;
+    }
+    else
+    {
+        return false;
+    }
+    return true;
+}
+
+bool Entity::importInt(string var,int value)
+{
+    if(var == "r")
+    {
+        r = value;
+    }
+    else
+    {
+        return false;
+    }
+    return true;
+}
+
+
+bool Entity::importDouble(string var,double value)
+{
+    if(var == "x")
+    {
+        x = value;
+    }
+    else if(var == "y")
+    {
+        y = value;
+    }
+    else if(var == "vx")
+    {
+        vx = value;
+    }
+    else if(var == "vy")
+    {
+        vy = value;
+    }
+    else if(var == "m")
+    {
+        m = value;
+    }
+    else if(var == "e")
+    {
+        e = value;
+    }
+    else if(var == "vMax")
+    {
+        vMax = value;
+    }
+    else
+    {
+        return false;
+    }
+    return true;
 }

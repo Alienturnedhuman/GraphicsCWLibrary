@@ -20,7 +20,7 @@ public:
     static enum EntityType{PLAYER,NPC,PROJECTILE,BOX,SURFACE,ENEMY,GENERIC};
     static enum CollisionRule{DAMAGE,HEALTH,KILLS,DIES,BOUNCES,STOPS,GAMEOVER,LEVELCOMPLETE,TRIGGER};
     static enum CollisionDirection{ALL,UP,DOWN,LEFT,RIGHT};
-    static enum Consumables{FUEL,BULLETS,BATTERY};
+    static enum Consumables{FUEL,BULLETS,BATTERY,OXYGEN};
     static enum Collectibles{KEY,JETPACK};
 private:
     // graphics / physics rules
@@ -43,6 +43,18 @@ private:
     map<Consumables,int> bag;
     map<Collectibles,bool> belt;
 
+
+    // constructor based stuff
+    enum ConType{INT,DOUBLE,STRING,ENUM,BOOL};
+    static map<string,ConType> conImport = {{"x",DOUBLE},{"y",DOUBLE},{"vx",DOUBLE},{"vy",DOUBLE},{"m",DOUBLE},{"e",DOUBLE},
+                                            {"vMax",DOUBLE},{"r",INT},{"canRotate",BOOL}};
+
+    // import values
+    bool importDouble(string var , double value);
+    bool importInt(string var, int value);
+    bool importString(string var, string value);
+    bool importEnum(string var, string value);
+    bool importBool(string var, bool value);
 public:
     inline int elementCount() const;
 
@@ -203,6 +215,29 @@ public:
         {
             return false;
         }
+    }
+
+
+    inline bool parseConstructorPair(pair<string,string> p)
+    {
+        map<string,ConType>::iterator it = conImport.find(p.first);
+        if(it!=conImport.end())
+        {
+            switch((*it).second)
+            {
+                case DOUBLE:
+                    return importDouble(p.first,stod(p.second));
+                case INT:
+                    return importInt(p.first,stoi(p.second));
+                case STRING:
+                    return importString(p.first,p.second);
+                case ENUM:
+                    return importEnum(p.first,p.second);
+                case BOOL:
+                    return importBool(p.first,p.second=="true");
+            }
+        }
+        return false;
     }
 
     Entity(string c_name)
