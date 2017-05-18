@@ -139,7 +139,7 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                     }
                     else if(currentPM != nullptr)
                     {
-
+                        currentPM->parseConstructorPair(lineVar);
                     }
                     else
                     {
