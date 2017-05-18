@@ -179,6 +179,61 @@ bool Entity::importEnum(string var,string value)
             {
                 rules=(*i).second;
             }
+
+            stringstream pS(lineVar.second);
+            string thing;
+            CollisionRule cr;
+            while(getline(pS,thing,','))
+            {
+                bool add = true;
+                if(thing=="DAMAGE")
+                {
+                    cr = DAMAGE;
+                }
+                else if(thing=="HEALTH")
+                {
+                    cr = HEALTH;
+                }
+                else if(thing=="KILLS")
+                {
+                    cr = KILLS;
+                }
+                else if(thing=="DIES")
+                {
+                    cr = DIES;
+                }
+                else if(thing=="BOUNCES")
+                {
+                    cr = BOUNCES;
+                }
+                else if(thing=="STOPS")
+                {
+                    cr = STOPS;
+                }
+                else if(thing=="GAMEOVER")
+                {
+                    cr = GAMEOVER;
+                }
+                else if(thing=="LEVELCOMPLETE")
+                {
+                    cr = LEVELCOMPLETE;
+                }
+                else if(thing=="TRIGGER")
+                {
+                    cr = TRIGGER;
+                }
+                else
+                {
+                    add = false;
+                }
+                if(add)
+                {
+                    if(find(rules.begin(),rules.end(),cr)==rules.end())
+                    {
+                        rules.push_back(cr);
+                    }
+                }
+            }
         }
     }
     else if(var=="canCollect")
