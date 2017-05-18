@@ -5,11 +5,15 @@
 #ifndef LIBRARY_GAMEWORLD_H
 #define LIBRARY_GAMEWORLD_H
 
+#include <cstdlib>
 #include <sstream>
 #include <fstream>
+#include <iostream>
 #include "Point.h"
 #include "Entity.h"
 #include "NonPlayerCharacter.h"
+
+using namespace std;
 
 class GameWorld
 {
@@ -33,7 +37,9 @@ public:
     {
         if(!hasEntityID(uid))
         {
-
+            Entity* newEnt = new Entity(uid);
+            entities.insert(pair<string,Entity*>(uid,newEnt));
+            return newEnt;
         }
         else
         {
@@ -62,8 +68,10 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
     {
         lineString = trim(lineString);
         int lineLen = lineString.length();
+        cout << "linelength " << lineLen <<": ";
         if(lineLen > 2)
         {
+            cout << " >> ";
             if (lineString.at(0)=='<' && lineString.at(lineLen-1)=='>')
             {
                 entName = lineString.substr(1,lineLen-2);
@@ -71,6 +79,8 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                 currentPM = nullptr;
                 currentRM = nullptr;
                 currentCM = nullptr;
+
+                cout << "Entity name '" << entName << "'";
             }
             else if(currentEnt != nullptr)
             {
@@ -85,6 +95,8 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                             free(currentPM);
                             currentPM = nullptr;
                         }
+
+                        cout << "PhysicalModel name '" << pmName << "'";
                     }
                 }
                 else if(lineString.at(0)=='(' && currentPM != nullptr)
@@ -103,6 +115,8 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                             s = CollisionModel::CIRCLE;
                         }
                         currentCM = new CollisionModel(s,currentPM);
+
+                        cout << "PhysicalModel type '" << colType << "'";
                     }
                     else if(lineLen > 15 && currentPM->getRenderer() == nullptr && lineString.substr(0,14)=="(RenderModel::"
                             && lineString.at(lineLen-1)==')')
@@ -118,6 +132,8 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                             s = RenderModel::CIRCLE;
                         }
                         currentRM = new RenderModel(s,currentPM);
+
+                        cout << "PhysicalModel type '" << renType << "'";
                     }
                     else
                     {
@@ -147,9 +163,12 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                         currentRM = nullptr;
                         currentCM = nullptr;
                     }
+
+                    cout << "equals line '" << lineVar.first << "' is equal to  '" << lineVar.second << "'";
                 }
             }
         }
+        cout << endl;
     }
     return is;
 }
