@@ -23,9 +23,9 @@ private:
     double x=0.0f,y=0.0f;
     int r=0;
     bool collides,rendered;
-    RenderModel* renderer;
-    CollisionModel* collider;
-    Entity* parentElement;
+    RenderModel* renderer = nullptr;
+    CollisionModel* collider = nullptr;
+    Entity* parentElement = nullptr;
 public:
     inline Entity* getParentElement() const;
     inline CollisionModel* getCollider() const;

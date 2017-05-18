@@ -18,7 +18,7 @@ class CollisionModel
 public:
     enum Shape{BOX,CIRCLE};
 private:
-    double origin_x,origin_y,box_bottom,box_top,box_left,box_right,circle_radius=0;
+    double origin_x = 0.0f,origin_y = 0.0f,box_bottom=-1.0f,box_top=1.0f,box_left=-1.0f,box_right=1.0f,circle_radius=1.0f;
     int angle = 0;
     Shape model;
     PhysicalModel* parentElement;
@@ -50,6 +50,11 @@ public:
     inline bool collidesCB(const CollisionModel &cm) const;
     inline bool collidesBB(const CollisionModel &cm) const;
 
+    CollisionModel(Shape s, PhysicalModel* p)
+    {
+        model = s;
+        parentElement = p;
+    }
     /**
      * Constructor for a circle
      * @param ox
@@ -57,7 +62,7 @@ public:
      * @param cr
      * @param p
      */
-    CollisionModel(int ox, int oy, int cr, PhysicalModel* p)
+    CollisionModel(double ox, double oy, double cr, PhysicalModel* p)
     {
         model = CIRCLE;
         parentElement = p;
@@ -76,7 +81,7 @@ public:
      * @param br
      * @param p
      */
-    CollisionModel(int ox, int oy, int oa, int bt, int bb, int bl, int br, PhysicalModel* p)
+    CollisionModel(double ox, double oy, double oa, double bt, double bb, double bl, double br, PhysicalModel* p)
     {
         model = BOX;
         parentElement = p;

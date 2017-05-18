@@ -89,17 +89,29 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                 }
                 else if(lineString.at(0)=='(' && currentPM != nullptr)
                 {
-                    if(lineString.substr(0,17)=="(CollisionModel::" && lineString.at(lineLen-1)==')')
+                    if(lineLen > 18 && currentPM->getCollider() == nullptr && lineString.substr(0,17)=="(CollisionModel::" && lineString.at(lineLen-1)==')')
                     {
+                        string colType = lineString.substr(17,lineLen-18);
+                        if(colType=="BOX")
+                        {
+                            CollisionModel::Shape s = CollisionModel::BOX;
+                        }
+                        else if(colType=="CIRCLE")
+                        {
+                            CollisionModel::Shape s = CollisionModel::CIRCLE;
+                        }
 
                     }
-                    else if(lineString.substr(0,14)=="(RenderModel::"  && lineString.at(lineLen-1)==')')
+                    else if(lineLen > 15 && currentPM->getRenderer() == nullptr && lineString.substr(0,14)=="(RenderModel::"
+                            && lineString.at(lineLen-1)==')')
                     {
-
+                        string renType = lineString.substr(14,lineLen-15);
                     }
                     else
                     {
-
+                        currentPM = nullptr;
+                        currentRM = nullptr;
+                        currentCM = nullptr;
                     }
                 }
                 else
