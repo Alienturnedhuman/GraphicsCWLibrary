@@ -185,9 +185,13 @@ public:
     {
         damage = c;
     }
-    inline void setX(double x)
+    inline void setX(double nx)
     {
-
+        x = nx;
+    }
+    inline void setY(double ny)
+    {
+        y = ny;
     }
     // constructors
 
