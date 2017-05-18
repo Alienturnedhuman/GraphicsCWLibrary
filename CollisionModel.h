@@ -7,6 +7,7 @@
 
 #include <cstdlib>
 #include <list>
+#include <map>
 #include "Point.h"
 
 class PhysicalModel;
@@ -22,6 +23,15 @@ private:
     int angle = 0;
     Shape model;
     PhysicalModel* parentElement;
+
+    enum ConType{INT,DOUBLE,STRING,ENUM};
+    static map<string,ConType> conImport = {{"origin_x",DOUBLE},{"origin_y",DOUBLE},{"box_top",DOUBLE},{"box_bottom",DOUBLE},
+                                            {"box_left",DOUBLE},{"box_right",DOUBLE},{"circle_radius",DOUBLE}};
+
+    // import values
+    void importDouble(string var , double value);
+    void importInt(string var, int value);
+    void importString(string var, string value);
 public:
     inline Shape getModel() const;
     inline Point getGlobalPos() const;
@@ -49,6 +59,28 @@ public:
     inline bool collidesCC(const CollisionModel &cm) const;
     inline bool collidesCB(const CollisionModel &cm) const;
     inline bool collidesBB(const CollisionModel &cm) const;
+
+
+    inline bool parseConstructorPair(pair<string,string> p)
+    {
+        map<string,ConType>::iterator it = conImport.find(p.first);
+        if(it!=conImport.end())
+        {
+            switch((*it).second)
+            {
+                case DOUBLE:
+                    importDouble(p.first,stod(p.second));
+                    break;
+                case INT:
+                    importInt(p.first,stoi(p.second));
+                    break;
+                case STRING:
+                    importString(p.first,p.second);
+                    break;
+
+            }
+        }
+    }
 
     CollisionModel(Shape s, PhysicalModel* p)
     {

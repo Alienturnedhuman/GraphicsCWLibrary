@@ -62,6 +62,37 @@ inline bool CollisionModel::collidesBB(const CollisionModel &cm) const
     return rv;
 }
 
+void CollisionModel::importDouble(string var,double value)
+{
+    if(var == "origin_x")
+    {
+        origin_x = value;
+    }
+    else if(var == "origin_y")
+    {
+        origin_y = value;
+    }
+    else if(var == "box_top")
+    {
+        box_top = value;
+    }
+    else if(var == "box_bottom")
+    {
+        box_bottom = value;
+    }
+    else if(var == "box_left")
+    {
+        box_left = value;
+    }
+    else if(var == "box_right")
+    {
+        box_right = value;
+    }
+    else if(var == "circle_radius") {
+        circle_radius = value;
+    }
+}
+
 
 inline void CollisionPipeline::addModel(CollisionModel* model)
 {

@@ -89,23 +89,35 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                 }
                 else if(lineString.at(0)=='(' && currentPM != nullptr)
                 {
-                    if(lineLen > 18 && currentPM->getCollider() == nullptr && lineString.substr(0,17)=="(CollisionModel::" && lineString.at(lineLen-1)==')')
+                    if(lineLen > 18 && currentPM->getCollider() == nullptr && lineString.substr(0,17)=="(CollisionModel::"
+                       && lineString.at(lineLen-1)==')')
                     {
                         string colType = lineString.substr(17,lineLen-18);
+                        CollisionModel::Shape s;
                         if(colType=="BOX")
                         {
-                            CollisionModel::Shape s = CollisionModel::BOX;
+                            s = CollisionModel::BOX;
                         }
                         else if(colType=="CIRCLE")
                         {
-                            CollisionModel::Shape s = CollisionModel::CIRCLE;
+                            s = CollisionModel::CIRCLE;
                         }
-
+                        currentCM = new CollisionModel(s,currentPM);
                     }
                     else if(lineLen > 15 && currentPM->getRenderer() == nullptr && lineString.substr(0,14)=="(RenderModel::"
                             && lineString.at(lineLen-1)==')')
                     {
                         string renType = lineString.substr(14,lineLen-15);
+                        RenderModel::Shape s;
+                        if(renType=="BOX")
+                        {
+                            s = RenderModel::BOX;
+                        }
+                        else if(renType=="CIRCLE")
+                        {
+                            s = RenderModel::CIRCLE;
+                        }
+                        currentRM = new RenderModel(s,currentPM);
                     }
                     else
                     {
@@ -119,11 +131,10 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                     pair<string,string> lineVar = getEquals(lineString);
                     if(currentCM != nullptr && currentPM != nullptr)
                     {
-
+                        currentCM->parseConstructorPair(lineVar);
                     }
                     else if(currentRM != nullptr && currentPM != nullptr)
                     {
-
                     }
                     else if(currentPM != nullptr)
                     {
@@ -131,7 +142,9 @@ inline std::ifstream& operator>>(ifstream &is, GameWorld& gw)
                     }
                     else
                     {
-
+                        currentPM = nullptr;
+                        currentRM = nullptr;
+                        currentCM = nullptr;
                     }
                 }
             }

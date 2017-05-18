@@ -7,6 +7,7 @@
 
 
 #include <list>
+#include <map>
 #include "Point.h"
 #include "Color.h"
 #include "Texture.h"
@@ -22,17 +23,27 @@ private:
     unsigned int width;
     unsigned int height;
     Shape model;
-    Color color;
-    Texture texture;
+    Color* color = nullptr;
+    Texture* texture = nullptr;
     bool textured;
     double origin_x,origin_y,box_bottom,box_top,box_left,box_right,circle_radius;
     int angle=0.0;
     PhysicalModel* parentElement;
+
+    enum ConType{INT,DOUBLE,STRING,ENUM,COLOR};
+    static map<string,ConType> conImport = {{"origin_x",DOUBLE},{"origin_y",DOUBLE},{"box_top",DOUBLE},{"box_bottom",DOUBLE},
+                                            {"box_left",DOUBLE},{"box_right",DOUBLE},{"circle_radius",DOUBLE},{"color",DOUBLE}};
 public:
 
     inline Point getGlobalPos() const;
     inline Point* getRectPoints() const;
-    RenderModel();
+
+    RenderModel(Shape s, PhysicalModel* p)
+    {
+        model = s;
+        parentElement = p;
+        color = new Color(255);
+    }
 };
 
 
