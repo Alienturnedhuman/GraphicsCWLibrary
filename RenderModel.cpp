@@ -4,6 +4,8 @@
 
 #include "RenderModel.h"
 
+map<string,ConType> RenderModel::conImport = {{"origin_x",DOUBLE},{"origin_y",DOUBLE},{"box_top",DOUBLE},{"box_bottom",DOUBLE},
+{"box_left",DOUBLE},{"box_right",DOUBLE},{"circle_radius",DOUBLE},{"color",COLOR}};
 
 bool RenderModel::importDouble(string var,double value)
 {

@@ -3,7 +3,8 @@
 //
 
 #include "CollisionModel.h"
-
+map<string,ConType> CollisionModel::conImport = {{"origin_x",DOUBLE},{"origin_y",DOUBLE},{"box_top",DOUBLE},{"box_bottom",DOUBLE},
+                                              {"box_left",DOUBLE},{"box_right",DOUBLE},{"circle_radius",DOUBLE}};
 
 inline CollisionModel::Shape CollisionModel::getModel() const
 {

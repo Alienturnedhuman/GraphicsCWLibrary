@@ -46,10 +46,7 @@ private:
 
     // constructor based stuff
     enum ConType{INT,DOUBLE,STRING,ENUM,BOOL};
-    static map<string,ConType> conImport = {{"x",DOUBLE},{"y",DOUBLE},{"vx",DOUBLE},{"vy",DOUBLE},{"m",DOUBLE},{"e",DOUBLE},
-                                            {"vMax",DOUBLE},{"r",INT},{"renderLayer",INT},{"canRotate",BOOL},{"movable",BOOL},
-                                            {"affectedByGravity",BOOL},{"invincible",BOOL},{"health",INT},{"damage",INT},
-                                            {"collisionDirection",ENUM},{"collisionRule",ENUM},{"canCollect",ENUM}};
+    static map<string,ConType> conImport;
 
     // import values
     bool importDouble(string var , double value);

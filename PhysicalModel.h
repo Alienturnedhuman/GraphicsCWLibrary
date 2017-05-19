@@ -28,7 +28,7 @@ private:
     Entity* parentElement = nullptr;
 
     enum ConType{DOUBLE};
-    static map<string,ConType> conImport = {{"x",DOUBLE},{"y",DOUBLE}};
+    static map<string,ConType> conImport;
 
     // import values
     bool importDouble(string var , double value);

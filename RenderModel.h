@@ -32,8 +32,7 @@ private:
     PhysicalModel* parentElement;
 
     enum ConType{INT,DOUBLE,STRING,ENUM,COLOR};
-    static map<string,ConType> conImport = {{"origin_x",DOUBLE},{"origin_y",DOUBLE},{"box_top",DOUBLE},{"box_bottom",DOUBLE},
-                                            {"box_left",DOUBLE},{"box_right",DOUBLE},{"circle_radius",DOUBLE},{"color",COLOR}};
+    static map<string,ConType> conImport;
 
     // import values
     bool importDouble(string var , double value);

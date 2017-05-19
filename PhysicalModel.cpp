@@ -3,7 +3,7 @@
 //
 
 #include "PhysicalModel.h"
-
+map<string,ConType> PhysicalModel::conImport = {{"x",DOUBLE},{"y",DOUBLE}};
 
 inline Entity* PhysicalModel::getParentElement() const
 {

@@ -9,6 +9,7 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
+#include <string>
 #include "Point.h"
 #include "Entity.h"
 #include "NonPlayerCharacter.h"
@@ -21,11 +22,12 @@ private:
     CollisionPipeline collisionPipeline;
     CollisionPipeline movingPipeline;
     RenderPipeline renderLayer[5];
-    map<string,Entity> entities;    // UID , Entity
+    map<string,Entity*> entities;    // UID , Entity
     list<NonPlayerCharacter> npc;
 
     double gravity = 10.0;
 
+    string name;
 public:
     static Rotation angles;
     void loadLevel(stringstream levelStream);
@@ -45,6 +47,16 @@ public:
         {
             return nullptr;
         }
+    }
+
+    inline string getName()
+    {
+        return name;
+    }
+
+    GameWorld(string ln)
+    {
+        name = ln;
     }
 };
 
